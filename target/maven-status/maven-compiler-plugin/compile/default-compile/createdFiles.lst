@@ -1,1 +1,3 @@
+com\dist\services\HTTPrequestsImpl.class
 com\dist\controller\RestController.class
+com\dist\services\HTTPrequest.class

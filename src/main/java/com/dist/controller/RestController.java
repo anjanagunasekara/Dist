@@ -1,7 +1,8 @@
 package com.dist.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import com.dist.services.HTTPrequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,8 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("rest")
 public class RestController {
-    @RequestMapping(value = "/node", method = RequestMethod.GET)
-    public String printWelcome(String model) {
+
+    @Autowired
+HTTPrequest httPrequest;
+
+    @RequestMapping(value = "/node", method = RequestMethod.POST)
+    public String printWelcome(@RequestBody String s) {
+
+
         return "customer";
+
+
     }
+
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    public void send() {
+        httPrequest.sendHTTPrequests("localhost",8082,"seham");
+          }
+
 }
