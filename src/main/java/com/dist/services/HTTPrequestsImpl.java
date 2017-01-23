@@ -17,15 +17,18 @@ import java.net.URL;
 @Service
 public class HTTPrequestsImpl implements HTTPrequest {
 
-    public void sendHTTPrequests(String ip,int port,String msg){
+    public void sendHTTPrequests(String senderIP,int senderPort,String recieverIp,int recieverPort,String msg){
 
+        int len = msg.length() + 5;
+        msg = String.format("%04d", len) + " " + msg;
 
-
-        String urlstr = "http://"+ip+":"+port+"/Dist/rest/node";
+        String urlstr = "http://"+recieverIp+":"+recieverPort+"/Dist/rest/node";
         try {
             URL url = new URL(urlstr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
+            conn.setRequestProperty("IP",senderIP);
+            conn.setRequestProperty("PORT",String.valueOf(senderPort));
             conn.setDoOutput(true);
             conn.setDoInput(true);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
@@ -41,6 +44,8 @@ public class HTTPrequestsImpl implements HTTPrequest {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+
 
        }
     public void downloadFile(String ip,int port,String fileName){
@@ -75,5 +80,5 @@ public class HTTPrequestsImpl implements HTTPrequest {
             System.out.println(e);
         }
 
-    }
+       }
 }

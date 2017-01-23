@@ -1,7 +1,12 @@
 package com.dist.controller;
 
 import com.dist.services.HTTPrequest;
+import com.dist.services.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +27,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author MaN
  *         on 1/20/2017.
@@ -33,11 +40,14 @@ public class RestController {
     @Autowired
     HTTPrequest httPrequest;
 
+    @Autowired
+    NodeService nodeService;
+
     @RequestMapping(value = "/node", method = RequestMethod.POST)
-    public String printWelcome(@RequestBody String s) {
+    public void printWelcome(@RequestBody String s, HttpServletRequest request) {
 
-
-        return "customer";
+        nodeService.handleRequest(s.replace("+"," ").trim(), request);
+      //   return "customer";
 
 
     }
@@ -72,6 +82,11 @@ public class RestController {
                 ex.printStackTrace();
             }
         }
+    }
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    public void send(HttpServletRequest request) {
+              httPrequest.sendHTTPrequests("localhost", 8082, "seham");
+
     }
 
 }
