@@ -6,5 +6,6 @@ package com.dist.services;
 public interface HTTPrequest {
 
         public void sendHTTPrequests(String Ip,int port,String msg);
+        public void downloadFile(String ip,int port,String msg);
 
 }
