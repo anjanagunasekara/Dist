@@ -1,14 +1,23 @@
+DIST.namespace("module.dashboard");
 
-    function myFunction() {
-        console.log("ffffff");
-    }
-    var test1 =function () {
+DIST.module.home = function () {
+    var buttonClick = function () {
         $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/Dist/home",
-            data: "Bbbbbbbbbb",
-
-
-        });
+            url: 'http://localhost:8082/Dist/join',
+            type: 'POST',
+            success: function (result) {
+                var x = result;
+            }
+        }); 
+    };
+    return {
+        init: function () {
+            $("#regBtn").off('click').on('click',buttonClick);
+        }
     }
+}();
+
+$(function () {
+    DIST.module.home.init();
+});
   

@@ -1,3 +1,8 @@
-com\dist\services\HTTPrequestsImpl.class
-com\dist\controller\RestController.class
+com\dist\controller\HomeController.class
+com\dist\services\NodeServiceImpl.class
+com\dist\services\NodeService.class
 com\dist\services\HTTPrequest.class
+com\dist\domain\Neighbour.class
+com\dist\services\HTTPrequestsImpl.class
+com\dist\domain\Configurations.class
+com\dist\controller\RestController.class

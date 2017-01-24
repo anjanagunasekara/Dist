@@ -12,5 +12,7 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    <mvc:view-controller path="/home.html" view-name="home"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 </beans>

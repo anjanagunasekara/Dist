@@ -1,25 +1,49 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
 <head>
-    <script src ="<c:url value="/resources/js/home.js"/>"></script>
+
     <script src="<c:url value="/resources/js/jquery/jquery-3.0.0.min.js" />"></script>
     <script src="<c:url value="/resources/js/jquery/jquery-ui.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/js/util/dist.commons.js" />"></script>
+
+    <script src="<c:url value="/resources/js/home.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
+
     <title>Home</title>
 </head>
 <body>
-This is home.jsp
-<h1>This is Home</h1>
-<input id="ab" type="text">
-<button onclick="test1();">Click</button>
-
-<form method="post">
-    <button id="button_1" value="val_1" name="but1">button 1</button>
-    <button id="button_2" value="val_2" name="but2">button 2</button>
-    <input id="access_token" type="hidden" name="access_token" value="<?php echo $_SESSION['access_token']; ?>" />
-</form>
+<div class="container">
+    <h1>Home</h1>
+</div>
+<div class="well">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+               Register as a new node
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-primary" id="regBtn">Click here</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="well">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                Leave from bootstrap server
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-primary" id="leaveBtn">Click here</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
