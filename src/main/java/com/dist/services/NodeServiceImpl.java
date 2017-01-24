@@ -81,16 +81,16 @@ public class NodeServiceImpl implements NodeService {
 
         for (Neighbour n : neighboursList) {
 
-            httPrequest.sendHTTPrequests(n.getIp(), n.getPort(), str);
+            httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), str);
         }
     }
     private void leave() {
-        httPrequest.sendHTTPrequests(ip, 55555, "UNREG " + ip + " " + port + " " + username);
+        httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
 
         for (Iterator<Neighbour> iterator = neighboursList.iterator(); iterator.hasNext(); ) {
 
             Neighbour n = iterator.next();
-            httPrequest.sendHTTPrequests(n.getIp(), n.getPort(), "LEAVE " + ip + " " + port);
+            httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), "LEAVE " + ip + " " + port);
             iterator.remove();
 
         }
@@ -108,9 +108,9 @@ public void handleRequest(String req,HttpServletRequest request){
             Neighbour neighbour = new Neighbour(ip, port);
             try {
                 neighboursList.add(neighbour);
-                httPrequest.sendHTTPrequests(ip, port, "JOINOK 0");
+                httPrequest.sendHTTPrequests(this.ip,this.port,ip, port, "JOINOK 0");
             } catch (Exception e) {
-                httPrequest.sendHTTPrequests(ip, port, "JOINOK 9999");
+                httPrequest.sendHTTPrequests(this.ip,this.port,ip, port, "JOINOK 9999");
             }
 
 
@@ -122,9 +122,9 @@ public void handleRequest(String req,HttpServletRequest request){
                 if (port == n.getPort() && ip.equals(n.getIp())) {
                     try {
                         iterator.remove();
-                        httPrequest.sendHTTPrequests(ip, port, "LEAVEOK 0");
+                        httPrequest.sendHTTPrequests(this.ip,this.port,ip, port, "LEAVEOK 0");
                     } catch (Exception e) {
-                        httPrequest.sendHTTPrequests(ip, port, "LEAVEOK 9999");
+                        httPrequest.sendHTTPrequests(this.ip,this.port,ip, port, "LEAVEOK 9999");
                     }
                 }
             }
@@ -186,20 +186,20 @@ public void handleRequest(String req,HttpServletRequest request){
                 s=s.replace(" ","_");
                 str+=s+" ";
             }
-            httPrequest.sendHTTPrequests(originIp, originPort, str);
+            httPrequest.sendHTTPrequests(this.ip,this.port,originIp, originPort, str);
         }else{
             if (ttl > 0) {
                 ttl--;
                 String str = "SER " + originIp + " " + originPort + " " + name + " " + ttl;
                 for (Neighbour n : neighboursList) {
                     if(!(n.getIp()==senderIp && n.getPort()==senderPort)){
-                        httPrequest.sendHTTPrequests(n.getIp(), n.getPort(), str);
+                        httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), str);
                     }
                 }
             } else {
                 String str = "SEROK " + 0 + " " + ip + " " + port + " " + ttl + " ";
 
-                httPrequest.sendHTTPrequests(originIp, originPort, str);
+                httPrequest.sendHTTPrequests(this.ip,this.port,originIp, originPort, str);
             }
         }
 
