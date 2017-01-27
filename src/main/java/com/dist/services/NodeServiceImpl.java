@@ -23,16 +23,17 @@ public class NodeServiceImpl implements NodeService {
     int initialTtl=2;
     List<Neighbour> neighboursList =
             Collections.synchronizedList(new ArrayList<Neighbour>());
-    private int port;
-    private String ip;
+    private int port=8083;
+    private String ip="127.0.0.1";
     private String username;
 
     DatagramSocket socket = null;
     List<String> dataList = null;
     @Autowired
     HTTPrequest httPrequest;
+    private boolean success;
 
-    public void register() {
+    public boolean register() {
 
         try {
             this.socket = new DatagramSocket(port);
@@ -60,19 +61,23 @@ public class NodeServiceImpl implements NodeService {
 
                     Neighbour neighbour = new Neighbour(parts[2 * i + 2], Integer.parseInt(parts[2 * i + 3]));
                     neighboursList.add(neighbour);
-
                 }
                 join();
+                success =true;
+                return true;
             } else {
-
+                success=false;
+                return success;
             }
+//            success=false;
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-
     }
 
 
@@ -84,8 +89,8 @@ public class NodeServiceImpl implements NodeService {
             httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), str);
         }
     }
-    private void leave() {
-        httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
+    public boolean leave() {
+        boolean success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
 
         for (Iterator<Neighbour> iterator = neighboursList.iterator(); iterator.hasNext(); ) {
 
@@ -94,6 +99,10 @@ public class NodeServiceImpl implements NodeService {
             iterator.remove();
 
         }
+        if(success){
+            return true;
+        }else
+            return false;
 
     }
 public void handleRequest(String req,HttpServletRequest request){

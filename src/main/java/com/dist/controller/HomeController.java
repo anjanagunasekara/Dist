@@ -24,9 +24,25 @@ public class HomeController {
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public
     @ResponseBody
-    void register() {
-        System.out.printf("::::::::");
-        nodeService.register();
+    String register() {
+        boolean regok=nodeService.register();
+        if(regok){
+            return "Registered successfully";
+        }
+        else
+            return "Registration fails";
+    }
+
+    @RequestMapping(value = "/leave", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String leave() {
+        boolean leaveok=nodeService.leave();
+        if(leaveok){
+            return "Leaving successfully";
+        }
+        else
+            return "Leaving fails";
     }
 
 }

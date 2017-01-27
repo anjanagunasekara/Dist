@@ -5,7 +5,7 @@ package com.dist.services;
  */
 public interface HTTPrequest {
 
-        public void sendHTTPrequests(String senderIP,int senderPort,String recieverIp,int recieverPort,String msg);
+        public boolean sendHTTPrequests(String senderIP,int senderPort,String recieverIp,int recieverPort,String msg);
         public void downloadFile(String ip,int port,String msg);
 
 }

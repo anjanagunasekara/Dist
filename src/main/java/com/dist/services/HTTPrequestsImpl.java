@@ -17,7 +17,7 @@ import java.net.URL;
 @Service
 public class HTTPrequestsImpl implements HTTPrequest {
 
-    public void sendHTTPrequests(String senderIP,int senderPort,String recieverIp,int recieverPort,String msg){
+    public boolean sendHTTPrequests(String senderIP,int senderPort,String recieverIp,int recieverPort,String msg){
 
         int len = msg.length() + 5;
         msg = String.format("%04d", len) + " " + msg;
@@ -38,16 +38,16 @@ public class HTTPrequestsImpl implements HTTPrequest {
             int x = conn.getResponseCode();
             if (x == 200) {
                 System.out.println("successful");
+                return true;
             } else {
                 System.out.println("not successful");
+                return false;
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-
-
-
-       }
+    return false;
+    }
     public void downloadFile(String ip,int port,String fileName){
         String urlstr = "http://"+ip+":"+port+"/Dist/rest/file/"+fileName;
         try {

@@ -1,3 +1,4 @@
+<%@ page import="com.dist.controller.HomeController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -18,6 +19,13 @@
     <title>Home</title>
 </head>
 <body>
+<%--<%--%>
+    <%--String strResponse;--%>
+    <%--HomeController homeController = new HomeController();--%>
+    <%--strResponse = homeController.register();--%>
+<%--%>--%>
+
+<%--<%=strResponse %>--%>
 <div class="container">
     <h1>Home</h1>
 </div>
@@ -30,6 +38,8 @@
             <div class="col-lg-2">
                 <button class="btn btn-primary" id="regBtn">Click here</button>
             </div>
+            <div class="col-lg-2" id="reg_response">
+            </div>
         </div>
     </div>
 </div>
@@ -41,6 +51,8 @@
             </div>
             <div class="col-lg-2">
                 <button class="btn btn-primary" id="leaveBtn">Click here</button>
+            </div>
+            <div class="col-lg-2" id="leave_response">
             </div>
         </div>
     </div>
