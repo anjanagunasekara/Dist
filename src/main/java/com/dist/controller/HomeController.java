@@ -24,25 +24,25 @@ public class HomeController {
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public
     @ResponseBody
-    String register() {
-        boolean regok=nodeService.register();
-        if(regok){
-            return "Registered successfully";
-        }
-        else
-            return "Registration fails";
+    String[] register() {
+        String[] regResponse = nodeService.register();
+        return regResponse;
     }
 
     @RequestMapping(value = "/leave", method = RequestMethod.POST)
     public
     @ResponseBody
-    String leave() {
-        boolean leaveok=nodeService.leave();
-        if(leaveok){
-            return "Leaving successfully";
-        }
-        else
-            return "Leaving fails";
+    String[] leave() {
+        String[] leaveResponse = nodeService.leave();
+        return leaveResponse;
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String[] search() {
+        String[] searchResponse = nodeService.search("abc", 10, "127.0.0.1", "127.0.0.1", 8082, 8082);
+        return searchResponse;
     }
 
 }

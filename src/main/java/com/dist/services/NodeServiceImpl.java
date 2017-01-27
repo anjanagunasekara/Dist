@@ -32,8 +32,9 @@ public class NodeServiceImpl implements NodeService {
     @Autowired
     HTTPrequest httPrequest;
     private boolean success;
+    private String[] response = new String[5];
 
-    public boolean register() {
+    public String[] register() {
 
         try {
             this.socket = new DatagramSocket(port);
@@ -64,20 +65,21 @@ public class NodeServiceImpl implements NodeService {
                 }
                 join();
                 success =true;
-                return true;
             } else {
                 success=false;
-                return success;
             }
-//            success=false;
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            return false;
+            success = false;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            success = false;
         }
+        response[0] = String.valueOf(success);
+        response[1] = ip;
+        response[2] = String.valueOf(port);
+        return response;
     }
 
 
@@ -89,8 +91,8 @@ public class NodeServiceImpl implements NodeService {
             httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), str);
         }
     }
-    public boolean leave() {
-        boolean success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
+    public String[] leave() {
+        success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
 
         for (Iterator<Neighbour> iterator = neighboursList.iterator(); iterator.hasNext(); ) {
 
@@ -99,10 +101,11 @@ public class NodeServiceImpl implements NodeService {
             iterator.remove();
 
         }
-        if(success){
-            return true;
-        }else
-            return false;
+        response[0] = String.valueOf(success);
+        response[1] = ip;
+        response[2] = String.valueOf(port);
+        return response;
+
 
     }
 public void handleRequest(String req,HttpServletRequest request){
@@ -175,7 +178,7 @@ public void handleRequest(String req,HttpServletRequest request){
     }
 }
 
-    private void search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort) {
+    public String[] search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort) {
         String split[] = name.split(" ");
         List<String> filteredList = new ArrayList<String>(dataList);
         List<String> namesToRemove = new ArrayList<String>();
@@ -211,6 +214,6 @@ public void handleRequest(String req,HttpServletRequest request){
                 httPrequest.sendHTTPrequests(this.ip,this.port,originIp, originPort, str);
             }
         }
-
+    return response;
     }
 }
