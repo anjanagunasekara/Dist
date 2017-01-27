@@ -3,12 +3,12 @@ DIST.namespace("module.dashboard");
 DIST.module.home = function () {
     var regButtonClick = function () {
         $.ajax({
-            url: 'http://localhost:8082/Dist/join',
+            url: 'http://localhost:8080/Dist/join',
             type: 'POST',
             success: function (result) {
                 var x = result;
                 var status;
-                if(x[0] == true) {
+                if(x[0] == "true") {
                     status = "Registration successful";
                 }else{
                     status = "Registration failed";
@@ -19,11 +19,11 @@ DIST.module.home = function () {
     };
     var leaveButtonClick = function () {
         $.ajax({
-            url: 'http://localhost:8082/Dist/leave',
+            url: 'http://localhost:8080/Dist/leave',
             type: 'POST',
             success: function (result) {
                 var x = result;
-                if(x[0] == true) {
+                if(x[0] == "true") {
                     status = "Leaving successful";
                 }else{
                     status = "Leaving failed";

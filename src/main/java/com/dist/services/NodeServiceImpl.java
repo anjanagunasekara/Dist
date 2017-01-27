@@ -89,7 +89,7 @@ socket.close();
         }
     }
 
-    public boolean leave() {
+    public String[] leave() {
 //        boolean success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
         boolean success=false;
         try {
@@ -112,7 +112,7 @@ socket.close();
                 success=true;
             else
                 success= false;
-socket.close();
+            socket.close();
         } catch (SocketException e) {
             success=false;
             e.printStackTrace();
@@ -133,9 +133,9 @@ socket.close();
         response[0] = String.valueOf(success);
         response[1] = ip;
         response[2] = String.valueOf(port);
-//        return response;
+        return response;
 
-        return success;
+//        return success;
 
     }
 public void handleRequest(String req,HttpServletRequest request){
