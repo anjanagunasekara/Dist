@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -23,7 +20,7 @@ public class NodeServiceImpl implements NodeService {
     int initialTtl=2;
     List<Neighbour> neighboursList =
             Collections.synchronizedList(new ArrayList<Neighbour>());
-    private int port=8083;
+    private int port=8080;
     private String ip="127.0.0.1";
     private String username;
 
@@ -51,7 +48,7 @@ public class NodeServiceImpl implements NodeService {
             socket.receive(reply);
             String rep = new String(reply.getData(), 0, reply.getLength());
             System.out.println("Node :" + username + " Reply from Bootstrap server  :" + rep);
-
+socket.close();
 
             rep = rep.substring(5);
             if (rep.startsWith("REGOK")) {
@@ -91,9 +88,41 @@ public class NodeServiceImpl implements NodeService {
             httPrequest.sendHTTPrequests(this.ip,this.port,n.getIp(), n.getPort(), str);
         }
     }
-    public String[] leave() {
-        success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
 
+    public boolean leave() {
+//        boolean success = httPrequest.sendHTTPrequests(this.ip,this.port,ip, 55555, "UNREG " + ip + " " + port + " " + username);
+        boolean success=false;
+        try {
+            this.socket = new DatagramSocket(port);
+            String str = "UNREG " + ip + " " + port + " " + username;
+            int len = str.length() + 5;
+            str = String.format("%04d", len) + " " + str;
+            InetAddress ip = InetAddress.getByName(bootstrapServerIp);
+            DatagramPacket dp = new DatagramPacket(str.getBytes(), str.length(), ip, bootstrapServerPort);
+            socket.send(dp);
+
+            byte[] buf = new byte[1024];
+            DatagramPacket reply = new DatagramPacket(buf, 1024);
+            socket.receive(reply);
+            String rep = new String(reply.getData(), 0, reply.getLength());
+            System.out.println("Node :" + username + " Reply from Bootstrap server  :" + rep);
+
+            rep = rep.substring(5);
+            if(rep.startsWith("UNROK"))
+                success=true;
+            else
+                success= false;
+socket.close();
+        } catch (SocketException e) {
+            success=false;
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            success=false;
+            e.printStackTrace();
+        } catch (IOException e) {
+            success=false;
+            e.printStackTrace();
+        }
         for (Iterator<Neighbour> iterator = neighboursList.iterator(); iterator.hasNext(); ) {
 
             Neighbour n = iterator.next();
@@ -104,8 +133,9 @@ public class NodeServiceImpl implements NodeService {
         response[0] = String.valueOf(success);
         response[1] = ip;
         response[2] = String.valueOf(port);
-        return response;
+//        return response;
 
+        return success;
 
     }
 public void handleRequest(String req,HttpServletRequest request){
