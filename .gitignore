@@ -1,0 +1,22 @@
+*~
+*.swp
+target
+test-output
+.openshift
+.gitkeep
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+# Intellij
+.idea/
+*.iml
+*.iws
+workspace.xml
+
+
+# Maven
+log/
+target/

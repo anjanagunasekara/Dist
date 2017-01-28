@@ -19,18 +19,10 @@
     <title>Home</title>
 </head>
 <body>
-<%--<%--%>
-    <%--String strResponse;--%>
-    <%--HomeController homeController = new HomeController();--%>
-    <%--strResponse = homeController.register();--%>
-<%--%>--%>
-
-<%--<%=strResponse %>--%>
 <div class="container">
     <h1>Home</h1>
-</div>
-<div class="well">
-    <div class="container">
+    <div class="well">
+    <div class="container center">
         <div class="row">
             <div class="col-lg-3">
                Register as a new node
@@ -43,10 +35,10 @@
         </div>
     </div>
 </div>
-<div class="well">
-    <div class="container">
+    <div class="well">
+    <div class="container row-lg-6">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3 center">
                 Leave from bootstrap server
             </div>
             <div class="col-lg-2">
@@ -56,6 +48,27 @@
             </div>
         </div>
     </div>
+</div>
+    <div class="well">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    Search for file
+                </div>
+                <div class="col-lg-4">
+                    File name: <input type="text">
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-primary" id="searchBtn">Click here</button>
+                </div>
+                <div class="col-lg-2" id="search_response">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notificationPopupContainer">
+
 </div>
 </body>
 </html>
