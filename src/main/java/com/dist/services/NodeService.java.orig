@@ -10,6 +10,10 @@ public interface NodeService{
     public String[] register();
     public void handleRequest(String req,HttpServletRequest request);
     public String[] leave();
-    public List<String> search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort);
+<<<<<<< 873e27a5279ae98737cfa37e80321aeb2bea9015
+    public String[] search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort);
     public String configureIPandPort(int port);
+=======
+    public List<String> search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort);
+>>>>>>> files shown in front end
 }

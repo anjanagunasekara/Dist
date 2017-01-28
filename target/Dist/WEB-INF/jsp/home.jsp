@@ -9,9 +9,12 @@
 
     <script src="<c:url value="/resources/js/jquery/jquery-3.0.0.min.js" />"></script>
     <script src="<c:url value="/resources/js/jquery/jquery-ui.min.js" />"></script>
+    <script src="<c:url value="/resources/js/jquery/jquery.bootgrid.js" />"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <link rel="stylesheet" href="<c:url value="/resources/css/jquery.bootgrid.min.css" />">
     <script src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />"></script>
     <script src="<c:url value="/resources/js/util/dist.commons.js" />"></script>
+    <script src="<c:url value="/resources/js/util/underscore.js" />"></script>
 
     <script src="<c:url value="/resources/js/home.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
@@ -43,21 +46,38 @@
             </div>
         </div>
     </div>
-</div>
     <div class="well">
-    <div class="container row-lg-6">
-        <div class="row">
-            <div class="col-lg-3 center">
-                Leave from bootstrap server
-            </div>
-            <div class="col-lg-2">
-                <button class="btn btn-primary" id="leaveBtn">Click here</button>
-            </div>
-            <div class="col-lg-2" id="leave_response">
+        <div class="container row-lg-6">
+            <div class="row">
+                <div class="col-lg-3 center">
+                    Leave from bootstrap server
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-primary" id="leaveBtn">Click here</button>
+                </div>
+                <div class="col-lg-2" id="leave_response">
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div id="showFiles">
+        <a>Show files</a>
+    </div>
+    <div class="well" id="fileWell">
+        <div class="container" >
+            <div class="row dist-file-row">
+                <div class="col-lg-10">
+                    Files in the local drive :
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-primary dist-btn" id="refreshBtn">@</button>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="fileContainer">
+
+        </div>
+    </div>
     <div class="well">
         <div class="container">
             <div class="row">
@@ -73,6 +93,14 @@
                 <div class="col-lg-2" id="search_response">
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="container" >
+            <div class="row dist-file-row">Search results :</div>
+        </div>
+        <div class="container" id="resultsContainer">
+
         </div>
     </div>
 </div>

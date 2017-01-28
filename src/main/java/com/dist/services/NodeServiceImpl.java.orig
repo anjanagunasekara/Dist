@@ -253,7 +253,7 @@ public class NodeServiceImpl implements NodeService {
                 httPrequest.sendHTTPrequests(this.ip, this.port, originIp, originPort, str);
             }
         }
-        return filteredList;
+        return response;
     }
 
     public String configureIPandPort(int port) {
@@ -274,7 +274,11 @@ public class NodeServiceImpl implements NodeService {
         } catch (SocketException ex) {
             System.out.println("Socket exception in GetIP Address of Utilities" + ex.toString());
         }
+<<<<<<< 873e27a5279ae98737cfa37e80321aeb2bea9015
         return "localhost";
+=======
+    return filteredList;
+>>>>>>> files shown in front end
     }
 
 

@@ -27,3 +27,12 @@ h1{
     font-size: 14px;
     margin-bottom:5px;
 }
+.dist-btn{
+    height: 25px;
+    width: 25px;
+    padding: 0px;
+    font-size: 10px;
+}
+.dist-file-row{
+    margin-bottom: 3px;
+}

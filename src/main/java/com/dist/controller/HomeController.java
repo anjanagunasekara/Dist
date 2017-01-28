@@ -12,6 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletRequest;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/")
@@ -49,9 +54,23 @@ public class HomeController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public
     @ResponseBody
-    String[] search() {
-        String[] searchResponse = nodeService.search("abc", 10, "127.0.0.1", "127.0.0.1", 8082, 8082);
+    List<String> search() {
+        List<String> searchResponse = nodeService.search("abc", 10, "127.0.0.1", "127.0.0.1", 8082, 8082);
         return searchResponse;
+    }
+
+    @RequestMapping(value = "/loadFiles", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    List<String> loadFiles() {
+        List<String> dataList=new ArrayList<String>();
+        URL url = this.getClass().getClassLoader().getResource("/downloads");
+        File folder = new File(url.getFile());
+        File[] listOfFiles = folder.listFiles();
+        for(int i=0;i<listOfFiles.length;i++){
+            dataList.add(listOfFiles[i].getName());
+        }
+        return dataList;
     }
 
 }

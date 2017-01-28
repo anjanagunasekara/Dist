@@ -51,19 +51,41 @@ DIST.module.home = function () {
 
         });
     };
+    var loadFiles = function(){
+        $.ajax({
+            url: 'http://localhost:8082/Dist/loadFiles',
+            type: 'POST',
+            success: function (result) {
+                $("#fileContainer").empty();
+                _.each(result,function (item) {
+                    var row=' <div class="row dist-file-row" >'
+                        +' <div class="col-lg-1">*</div>'
+                        +' <div class="col-lg-3">'+item+'</div>'
+                        +'<div class="col-lg-2"> <button class="btn btn-danger dist-btn" id="test">X</button></div>'
+                        +'</div>';
+                    $("#fileContainer").append(row);
+                })
+            }
 
+        });
+       
+    };
     var searchButtonClick = function () {
         $.ajax({
             url: 'http://localhost:8082/Dist/search',
             type: 'POST',
             success: function (result) {
-                var x = result;
-                if(x[0] == true) {
-                    status = "Searching successful";
-                }else{
-                    status = "Searching failed";
-                }
-                $("#status").html(status+" with IP address "+x[1]+" on port "+x[2]);
+                $("#resultsContainer").empty();
+                _.each(result,function (item) {
+                    var row=' <div class="row dist-file-row" >'
+                        +' <div class="col-lg-1">*</div>'
+                        +' <div class="col-lg-3">'+item.name+'</div>'
+                        +' <div class="col-lg-2">'+item.ip+'</div>'
+                        +' <div class="col-lg-2">'+item.port+'</div>'
+                        +'<div class="col-lg-2"> <button class="btn btn-success dist-btn" id="test">V</button></div>'
+                        +'</div>';
+                    $("#fileContainer").append(row);
+                })
             }
 
         });
@@ -74,19 +96,21 @@ DIST.module.home = function () {
             $("#regBtn").off('click').on('click',regButtonClick);
             $("#leaveBtn").off('click').on('click',leaveButtonClick);
             $("#searchBtn").off('click').on('click',searchButtonClick);
+            $("#showFiles").off('click').on('click',function () {
+                $("#fileWell").slideToggle(1000);
+                if($("#fileWell").find("a").html()=="Show files"){
+                    $("#fileWell").find("a").html("Hide files")
+                }else{
+                    $("#fileWell").find("a").html("Show files")
+                }
+            });
+            $("#refreshBtn").off('click').on('click',loadFiles);
+            loadFiles();
             var repeatHandle = window.setInterval(function() {
                 $("#notificationPopupContainer").empty();
             }, 10000);
         }
     }
-
-
-
-
-
-
-
-
 }();
 
 $(function () {
