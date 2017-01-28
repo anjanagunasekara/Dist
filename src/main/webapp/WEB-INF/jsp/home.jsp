@@ -26,7 +26,7 @@
         <div class="container center">
             <div class="row">
                 <div class="col-lg-3">
-                   Node is running on IP : <div id="ip">${ip}</div> PORT : <div id="port">${port}</div>
+                   Node is running on IP : <g id="ip">${ip}</g> PORT : <div id="port">${port}</div>
                 </div>
             </div>
         </div>

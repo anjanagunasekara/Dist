@@ -27,8 +27,10 @@ DIST.module.home = function () {
         }); 
     };
     var leaveButtonClick = function () {
+        var port=document.getElementById("port").innerHTML;
+        var ip=document.getElementById("ip").innerHTML;
         $.ajax({
-            url: 'http://localhost:8082/Dist/leave',
+            url: 'http://'+ip+':'+port+'/Dist/leave',
             type: 'POST',
             success: function (result) {
                 var x = result;
@@ -53,8 +55,10 @@ DIST.module.home = function () {
     };
 
     var searchButtonClick = function () {
+        var port=document.getElementById("port").innerHTML;
+        var ip=document.getElementById("ip").innerHTML;
         $.ajax({
-            url: 'http://localhost:8082/Dist/search',
+            url: 'http://'+ip+':'+port+'/Dist/search',
             type: 'POST',
             success: function (result) {
                 var x = result;
