@@ -2,8 +2,10 @@ DIST.namespace("module.dashboard");
 
 DIST.module.home = function () {
     var regButtonClick = function () {
+        var port=document.getElementById("port").innerHTML;
+        var ip=document.getElementById("ip").innerHTML;
         $.ajax({
-            url: 'http://localhost:8082/Dist/join',
+            url: 'http://'+ip+':'+port+'/Dist/join',
             type: 'POST',
             success: function (result) {
                 var x = result;
