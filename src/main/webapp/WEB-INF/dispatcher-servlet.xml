@@ -15,4 +15,5 @@
     <mvc:view-controller path="/home.html" view-name="home"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+
 </beans>

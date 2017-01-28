@@ -10,4 +10,5 @@ public interface NodeService{
     public void handleRequest(String req,HttpServletRequest request);
     public String[] leave();
     public String[] search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort);
+    public String configureIPandPort(int port);
 }

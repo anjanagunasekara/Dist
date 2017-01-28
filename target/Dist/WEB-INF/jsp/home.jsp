@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
+<jsp:useBean id="someModel" scope="request" class="com.dist.controller.HomeController"/>
 <html>
 
 <head>
@@ -15,12 +15,21 @@
 
     <script src="<c:url value="/resources/js/home.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
-
+    <%@ page isELIgnored="false" %>
     <title>Home</title>
 </head>
 <body>
+
 <div class="container">
     <h1>Home</h1>
+    <div class="well">
+        <div class="container center">
+            <div class="row">
+                <div class="col-lg-3">
+                   Node is running on IP : <div id="ip">${ip}</div> PORT : <div id="port">${port}</div>
+                </div>
+            </div>
+        </div>
     <div class="well">
     <div class="container center">
         <div class="row">
