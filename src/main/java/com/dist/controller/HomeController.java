@@ -1,10 +1,12 @@
 package com.dist.controller;
 
+import com.dist.dto.SearchResults;
 import com.dist.services.HTTPrequest;
 import com.dist.services.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +26,9 @@ public class HomeController {
 
     @Autowired
     NodeService nodeService;
+
+    @Autowired
+    HTTPrequest httPrequest;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String welcomeHome(ModelMap model, ServletRequest servletRequest) {
@@ -71,6 +76,17 @@ public class HomeController {
             dataList.add(listOfFiles[i].getName());
         }
         return dataList;
+    }
+    @RequestMapping(value = "/getSearchResults", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    List<SearchResults> searchReults() {
+        List<SearchResults> searchResults = nodeService.getSearchResultList();
+        return searchResults;
+    }
+    @RequestMapping(value = "/getFile",  method = RequestMethod.POST, headers = "content-type=application/json")
+    public void send(@RequestBody SearchResults sr) {
+        httPrequest.downloadFile(sr.getIp(), sr.getPort(), sr.getName());
     }
 
 }

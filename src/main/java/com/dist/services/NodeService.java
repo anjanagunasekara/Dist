@@ -1,5 +1,7 @@
 package com.dist.services;
 
+import com.dist.dto.SearchResults;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -12,4 +14,5 @@ public interface NodeService{
     public String[] leave();
     public List<String> search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort);
     public String configureIPandPort(int port);
+    public List<SearchResults> getSearchResultList();
 }

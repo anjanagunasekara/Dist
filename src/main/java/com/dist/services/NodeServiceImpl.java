@@ -1,6 +1,7 @@
 package com.dist.services;
 
 import com.dist.domain.Neighbour;
+import com.dist.dto.SearchResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class NodeServiceImpl implements NodeService {
     HTTPrequest httPrequest;
     private boolean success;
     private String[] response = new String[5];
+    List<SearchResults> searchResultList=null;
 
     public String[] register() {
 
@@ -193,6 +195,25 @@ public class NodeServiceImpl implements NodeService {
                 int ttl = Integer.parseInt(ttlstr);
                 search(name, ttl, originIp, senderIp, originPort, senderPort);
             } else if (opr.equals("SEROK")) {
+                if(searchResultList==null){
+                    searchResultList=new ArrayList<SearchResults>();
+                }
+                // String str = "SEROK " + filteredList.size() + " " + ip + " " + port + " " + (initialTtl - ttl) + " ";
+                int size=Integer.parseInt(tokenizer.nextToken());
+                String  ip = tokenizer.nextToken();
+                int port = Integer.parseInt(tokenizer.nextToken());
+                int hops = Integer.parseInt(tokenizer.nextToken());
+                List<String> results = new ArrayList<String>();
+                for(int i=0;i<size;i++){
+                    String name=tokenizer.nextToken();
+                    results.add(name);
+                    SearchResults sr=new SearchResults();
+                    sr.setIp(ip);
+                    sr.setName(name);
+                    sr.setPort(port);
+                    sr.setHops(hops);
+                    searchResultList.add(sr);
+                }
 
             } else if (opr.equals("SEARCH")) {
                 String name = "";
@@ -277,5 +298,7 @@ public class NodeServiceImpl implements NodeService {
         return "localhost";
     }
 
-
+    public List<SearchResults> getSearchResultList() {
+        return searchResultList;
+    }
 }

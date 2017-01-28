@@ -36,3 +36,6 @@ h1{
 .dist-file-row{
     margin-bottom: 3px;
 }
+.result-header{
+    font-weight:bold ;
+}

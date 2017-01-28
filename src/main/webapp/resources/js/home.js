@@ -5,7 +5,7 @@ DIST.module.home = function () {
         var port=document.getElementById("port").innerHTML;
         var ip=document.getElementById("ip").innerHTML;
         $.ajax({
-            url: 'http://'+ip+':'+port+'/Dist/join',
+            url: 'http://localhost:'+port+'/Dist/join',
             type: 'POST',
             success: function (result) {
                 var x = result;
@@ -30,7 +30,7 @@ DIST.module.home = function () {
         var port=document.getElementById("port").innerHTML;
         var ip=document.getElementById("ip").innerHTML;
         $.ajax({
-            url: 'http://'+ip+':'+port+'/Dist/leave',
+            url: 'http://localhost:'+port+'/Dist/leave',
             type: 'POST',
             success: function (result) {
                 var x = result;
@@ -72,29 +72,79 @@ DIST.module.home = function () {
         });
        
     };
+
     var searchButtonClick = function () {
         var port=document.getElementById("port").innerHTML;
         var ip=document.getElementById("ip").innerHTML;
+        var isExist = false;
+        var searchQuery = $("#searchName").val();
         $.ajax({
-            url: 'http://'+ip+':'+port+'/Dist/search',
+            url: 'http://localhost:'+port+'/Dist/loadFiles',
             type: 'POST',
             success: function (result) {
-                $("#resultsContainer").empty();
                 _.each(result,function (item) {
-                    var row=' <div class="row dist-file-row" >'
-                        +' <div class="col-lg-1">*</div>'
-                        +' <div class="col-lg-3">'+item.name+'</div>'
-                        +' <div class="col-lg-2">'+item.ip+'</div>'
-                        +' <div class="col-lg-2">'+item.port+'</div>'
-                        +'<div class="col-lg-2"> <button class="btn btn-success dist-btn" id="test">V</button></div>'
-                        +'</div>';
-                    $("#fileContainer").append(row);
-                })
+                    if(item==searchQuery){
+                        console.log("Exist");
+                        isExist=true;
+                    }
+                });
+                if(!isExist){
+                    $.ajax({
+                        url: 'http://localhost:'+port+'/Dist/search',
+                        type: 'POST',
+                        success: function (result) {
+                        }
+
+                    });
+                }
+                window.setTimeout(function() {
+                    $.ajax({
+                        url: 'http://localhost:'+port+'/Dist/getSearchResults',
+                        type: 'POST',
+                        success: function (result) {
+                            $("#resultsContainer").empty();
+                            _.each(result,function (item) {
+                                var row=' <div class="row dist-file-row" >'
+                                    +' <div class="col-lg-1">*</div>'
+                                    +' <div class="col-lg-3">'+item.name+'</div>'
+                                    +' <div class="col-lg-2">'+item.ip+'</div>'
+                                    +' <div class="col-lg-2">'+item.port+'</div>'
+                                    +' <div class="col-lg-2">'+item.hops+'</div>'
+                                    +'<div class="col-lg-1"> <button class="btn btn-success dist-btn down-btn" id="test" ip="'+item.ip+'" port="'+item.port+'" name="'+item.name+'">V</button></div>'
+                                    +'</div>';
+                                $("#resultsContainer").append(row);
+                            });
+
+                            $(".down-btn").off('click').on('click',download);
+                        }
+
+                    });
+                }, 5000);
             }
 
         });
+       
     };
-    
+    var download = function(){
+        var port=document.getElementById("port").innerHTML;
+        var item={};
+        item.ip= $(this).attr("ip");
+        item.port= parseInt($(this).attr("port"));
+        item.name= $(this).attr("name");
+        item.hops= 0;
+        $.ajax({
+            url: 'http://localhost:'+port+'/Dist/getFile',
+            dataType: "json",
+            cache: false,
+            data: JSON.stringify(item),
+            contentType: 'application/json;',
+            type: 'POST',
+            success: function (result) {
+            }
+
+        });
+
+    };
     return {
         init: function () {
             $("#regBtn").off('click').on('click',regButtonClick);
