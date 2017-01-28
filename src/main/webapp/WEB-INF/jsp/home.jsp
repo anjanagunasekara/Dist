@@ -66,16 +66,9 @@
             </div>
         </div>
     </div>
-    <div class="well">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    Status
-                </div>
-                <div class="ssv-bold-label" id="status"></div>
-            </div>
-        </div>
-    </div>
+</div>
+<div id="notificationPopupContainer">
+
 </div>
 </body>
 </html>

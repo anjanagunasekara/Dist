@@ -4,3 +4,26 @@
 h1{
     text-align: center;
 }
+#notificationPopupContainer{
+    position: absolute;
+    right: 10px;
+    top:10px;
+    padding: 7px;
+    height: 75px;
+    width: 300px;
+}
+.notificationPopup{
+    display: none;
+    position: relative;
+    height: 75px;
+    width: 300px;
+    background-color: #20b26f;
+    border: 2px solid green;
+    border-radius: 6px;
+    right: 10px;
+    top:10px;
+    padding: 7px;
+    padding-top: 15px;
+    font-size: 14px;
+    margin-bottom:5px;
+}
