@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,8 +52,10 @@ public class RestController {
         //If user is not authorized - he should be thrown out from here itself
 
         //Authorized user will download the file
-        String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/downloads/");
-        Path file = Paths.get(dataDirectory, fileName);
+        URL url = this.getClass().getClassLoader().getResource("/downloads/");
+        String dataDirectory = url.getFile();
+        String finalDir=dataDirectory.substring(1).replace("/","\\");
+        Path file = Paths.get(finalDir, fileName);
         if (Files.exists(file)) {
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=" + fileName);

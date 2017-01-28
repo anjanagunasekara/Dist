@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.util.*;
@@ -209,7 +210,14 @@ public void handleRequest(String req,HttpServletRequest request){
 }
 
     public String[] search(String name, int ttl, String originIp, String senderIp, int originPort, int senderPort) {
+        dataList=new ArrayList<String>();
         String split[] = name.split(" ");
+        URL url = this.getClass().getClassLoader().getResource("/downloads");
+        File folder = new File(url.getFile());
+        File[] listOfFiles = folder.listFiles();
+        for(int i=0;i<listOfFiles.length;i++){
+            dataList.add(listOfFiles[i].getName());
+        }
         List<String> filteredList = new ArrayList<String>(dataList);
         List<String> namesToRemove = new ArrayList<String>();
         for(String s:split){
